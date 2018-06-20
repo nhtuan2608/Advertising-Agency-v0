@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Users">
+    <typeAlias alias="user" type="com.aptech.advertising.entity.Users" />
+    <select id="getUserByUserNamePassword"  resultClass="user" parameterClass="java.util.HashMap">
+        SELECT * FROM users
+        WHERE username = #userName#
+        <isNotEmpty property="password">
+            AND password = #password#
+        </isNotEmpty>
+    </select>
+    <select id="getUserById"  resultClass="user" parameterClass="java.util.HashMap">
+        SELECT * FROM users
+        WHERE userId = #userId#
+    </select>
+
+    <select id="getALLUser"  resultClass="user" parameterClass="java.util.HashMap">
+        SELECT * FROM users
+    </select>
+
+    <insert id="addUser" parameterClass="java.util.HashMap">
+        INSERT INTO users (username, password, role)
+        VALUES (#username#, #password#, #role#);
+    </insert>
+    
+    <delete id="deleteUser" parameterClass="String">
+        DELETE FROM users
+        WHERE userId = #userId#
+     </delete>
+     <update id="updateUser" parameterClass="java.util.HashMap">
+        UPDATE users
+        SET
+             username = #username#
+             passeor = #password#
+             role = #role#
+        WHERE userId = #userId#
+     </update>
+    
+
+</sqlMap>
